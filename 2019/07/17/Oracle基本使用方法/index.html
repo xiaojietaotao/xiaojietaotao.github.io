@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="前几天学了下，Oracle数据库，今天对其进行下总结！ Oracle数据库简介​    Oracle是关系型数据库，属于同名公司Oracle的产品。用户可以使用SQL语言操作数据库。 SQL语句分类以及常规使用​    SQL语言共分为四类如下所示：  DML语句：数据操作语言 ，用于对表中数据进行操作的语句，INSERT/UODATE/DELETE等。  插入： 123456--使用 INSER">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-17T10:09:24.072Z">
+<meta property="og:updated_time" content="2019-07-17T10:24:39.909Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle基本使用方法">
 <meta name="twitter:description" content="前几天学了下，Oracle数据库，今天对其进行下总结！ Oracle数据库简介​    Oracle是关系型数据库，属于同名公司Oracle的产品。用户可以使用SQL语言操作数据库。 SQL语句分类以及常规使用​    SQL语言共分为四类如下所示：  DML语句：数据操作语言 ，用于对表中数据进行操作的语句，INSERT/UODATE/DELETE等。  插入： 123456--使用 INSER">
@@ -182,27 +182,17 @@
 <ul>
 <li><p><strong><em>插入：</em></strong></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用 INSERT INTO VALUES插入数据</span></span><br><span class="line"><span class="comment">--插入数据时，可以指定字段输入也可以不指定字段输入</span></span><br><span class="line"><span class="comment">--不指定时需写出全部字段所需的值</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT <span class="keyword">VALUES</span> (<span class="number">1500840308</span>,<span class="string">'涛'</span>,<span class="string">'男'</span>);</span><br><span class="line"><span class="comment">--指定时，不指定的字段需要有空约束，可以通过DDL语句对约束进行修改。</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(<span class="keyword">ID</span>,<span class="keyword">NAME</span>) <span class="keyword">VALUES</span>(<span class="number">1501020304</span>,<span class="string">'栋'</span>);</span><br></pre></td></tr></table></figure>
-
-
-
 </li>
-</ul>
-</li>
-</ul>
-<ul>
 <li><p><strong><em>更新：</em></strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用UPADATE SET WHERE对字段进行更新</span></span><br><span class="line"><span class="comment">--不加WHERE则对SET后的字段全部进行更新</span></span><br><span class="line"><span class="keyword">UPDATE</span> Student <span class="keyword">SET</span> SEX = <span class="string">'男'</span> <span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'栋'</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用UPADATE SET WHERE对字段进行更新</span></span><br><span class="line">  <span class="comment">--不加WHERE则对SET后的字段全部进行更新</span></span><br><span class="line">  <span class="keyword">UPDATE</span> Student <span class="keyword">SET</span> SEX = <span class="string">'男'</span> <span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'栋'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><em>删除</em></strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用DELETE语句对数据进行删除</span></span><br><span class="line">  <span class="keyword">DELETE</span> <span class="keyword">FROM</span> Student <span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'1'</span>;</span><br></pre></td></tr></table></figure>
 
 
 
 </li>
 </ul>
-<ul>
-<li><p><strong><em>删除：</em></strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用DELETE语句对数据进行删除</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> Student <span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'1'</span>;</span><br></pre></td></tr></table></figure>
-
-
-
 </li>
 </ul>
 <ul>
@@ -217,9 +207,10 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> STUDENT <span class="keyword">ADD</span> studentsex <span class="built_in">char</span>(<span class="number">2</span>);<span class="comment">--添加在字段后面</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p><em>修改字段属性：</em></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--能够MODIFY修改字段属性，包括字段数据大小、数据类型等。</span></span><br><span class="line">  <span class="comment">--能够单独修改一个属性，也能够全部一起修改。</span></span><br><span class="line">  <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> STUDENT <span class="keyword">MODIFY</span> SEX VARCHAR2(<span class="number">2</span>);</span><br><span class="line">  <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> STUDENT <span class="keyword">MODIFY</span> SEX PRIMARY <span class="keyword">KEY</span>;</span><br><span class="line">  <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> STUDENT <span class="keyword">MODIFY</span> SEX VARCHAR2(<span class="number">2</span>) PRIMARY <span class="keyword">KEY</span>;</span><br></pre></td></tr></table></figure>
-
-
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--能够MODIFY修改字段属性，包括字段数据大小、数据类型等。</span></span><br><span class="line">   <span class="comment">--能够单独修改一个属性，也能够全部一起修改。</span></span><br><span class="line">   <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> STUDENT <span class="keyword">MODIFY</span> SEX VARCHAR2(<span class="number">2</span>);</span><br><span class="line">   <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> STUDENT <span class="keyword">MODIFY</span> SEX PRIMARY <span class="keyword">KEY</span>;</span><br><span class="line">   <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> STUDENT <span class="keyword">MODIFY</span> SEX VARCHAR2(<span class="number">2</span>) PRIMARY <span class="keyword">KEY</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><em>删除字段：</em></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--删除对应字段</span></span><br><span class="line"><span class="comment">--注意得注意DROP后面得加COLUMN</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> STUDENT <span class="keyword">DROP</span> <span class="keyword">COLUMN</span> SEX;</span><br></pre></td></tr></table></figure>
 
 
 </li>
@@ -228,9 +219,7 @@
 </ul>
 </li>
 </ul>
-<pre><code>3. *删除字段：*
-
-   <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--删除对应字段</span></span><br><span class="line"><span class="comment">--注意得注意DROP后面得加COLUMN</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> STUDENT <span class="keyword">DROP</span> <span class="keyword">COLUMN</span> SEX;</span><br></pre></td></tr></table></figure></code></pre><ul>
+<ul>
 <li><p>DCL语句：<strong>数据控制语言</strong>， 作为开发，一般用不到，不关心，有grand这种赋予权限的语句。</p>
 </li>
 <li><p>事务控制语句：<strong>提交、回滚</strong>之类的，不关心。</p>
