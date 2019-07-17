@@ -174,7 +174,7 @@
       
         <p>前几天学了下，Oracle数据库，今天对其进行下总结！</p>
 <h4 id="Oracle数据库简介"><a href="#Oracle数据库简介" class="headerlink" title="Oracle数据库简介"></a>Oracle数据库简介</h4><p>​    Oracle是关系型数据库，属于同名公司Oracle的产品。用户可以使用SQL语言操作数据库。</p>
-<h4 id="SQL语句分类以及常规使用"><a href="#SQL语句分类以及常规使用" class="headerlink" title="SQL语句分类以及常规使用"></a>SQL语句分类以及常规使用</h4><p>​    SQL语言共分为四类如下所示：</p>
+<h4 id="SQL语句分类以及常规使用"><a href="#SQL语句分类以及常规使用" class="headerlink" title="SQL语句分类以及常规使用"></a>SQL语句分类以及常规使用</h4><p>​    SQL语言共分为五类如下所示：</p>
 <ul>
 <li><p>DML语句：<strong>数据操作语言</strong> ，用于对表中<strong>数据</strong>进行操作的语句，<strong>INSERT/UODATE/DELETE</strong>等。</p>
 <ul>
@@ -182,10 +182,11 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用 INSERT INTO VALUES插入数据</span></span><br><span class="line"><span class="comment">--插入数据时，可以指定字段输入也可以不指定字段输入</span></span><br><span class="line"><span class="comment">--不指定时需写出全部字段所需的值</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT <span class="keyword">VALUES</span> (<span class="number">1500840308</span>,<span class="string">'涛'</span>,<span class="string">'男'</span>);</span><br><span class="line"><span class="comment">--指定时，不指定的字段需要有空约束，可以通过DDL语句对约束进行修改。</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(<span class="keyword">ID</span>,<span class="keyword">NAME</span>) <span class="keyword">VALUES</span>(<span class="number">1501020304</span>,<span class="string">'栋'</span>);</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong><em>更新：</em></strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用UPADATE SET WHERE对字段进行更新</span></span><br><span class="line">  <span class="comment">--不加WHERE则对SET后的字段全部进行更新</span></span><br><span class="line">  <span class="keyword">UPDATE</span> Student <span class="keyword">SET</span> SEX = <span class="string">'男'</span> <span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'栋'</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用UPADATE SET WHERE对字段进行更新</span></span><br><span class="line"><span class="comment">--不加WHERE则对SET后的字段全部进行更新</span></span><br><span class="line"><span class="keyword">UPDATE</span> Student <span class="keyword">SET</span> SEX = <span class="string">'男'</span> <span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'栋'</span>;</span><br><span class="line"><span class="comment">--日期形式的更新</span></span><br><span class="line"><span class="keyword">UPDATE</span> STUDENT <span class="keyword">SET</span> BIRTHDAY = <span class="keyword">TO_DATE</span>(<span class="string">'1996-10-18'</span>, <span class="string">'YYYY-MM-DD'</span>) <span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'波'</span>;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong><em>删除</em></strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用DELETE语句对数据进行删除</span></span><br><span class="line">  <span class="keyword">DELETE</span> <span class="keyword">FROM</span> Student <span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'1'</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用DELETE语句对数据进行删除</span></span><br><span class="line">  <span class="keyword">DELETE</span> <span class="keyword">FROM</span> Student <span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'1'</span>;</span><br><span class="line">  <span class="comment">--使用TRUNCATE语句删除数据,删除速度快，原理为删除表后重建，难找回数据（属于DDL）</span></span><br><span class="line"><span class="keyword">TRUNCATE</span> <span class="keyword">TABLE</span> STUDENT;</span><br></pre></td></tr></table></figure>
+
 
 
 
@@ -221,6 +222,23 @@
 <li><p>DCL语句：<strong>数据控制语言</strong>， 作为开发，一般用不到，不关心，有grand这种赋予权限的语句。</p>
 </li>
 <li><p>事务控制语句：<strong>提交、回滚</strong>之类的，不关心。</p>
+</li>
+<li><p>DQL语句：<strong>数据查询语言</strong>，对于开发来说很重要。</p>
+<ul>
+<li><p><strong><em>指定-查询表数据：</em></strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--查询表数据</span></span><br><span class="line"><span class="comment">--SELECT可以理解为调取，调取数据</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT;</span><br><span class="line"><span class="comment">--查询指定字段</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">NAME</span>, <span class="keyword">ID</span> <span class="keyword">FROM</span> STUDENT;</span><br><span class="line"><span class="comment">--条件查询 可以使用&lt; &gt; != =，关系运算符 AND OR NOT,算术运算符 + - * /</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'涛'</span> <span class="keyword">AND</span> SEX = <span class="string">'男'</span>;</span><br><span class="line"><span class="comment">--配合函数查询 可以使用or来写</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> <span class="keyword">ID</span> <span class="keyword">IN</span>(<span class="string">'1500840308'</span>, <span class="string">'1501020304'</span>);</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> <span class="keyword">ID</span> = <span class="string">'1500840308'</span> <span class="keyword">OR</span> <span class="keyword">ID</span> =  <span class="string">'150020304'</span>;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong><em>模糊-查询表数据：</em></strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--通过使用’_‘一个字符查询 ’%‘0-n个字符，可以搭配使用，这里举1例子,第三个字母为i的东西</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT </span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'__i%'</span>;</span><br></pre></td></tr></table></figure>
+
+
+
 </li>
 </ul>
 
