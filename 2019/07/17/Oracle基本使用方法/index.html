@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="今天学了Oracle数据库，对其进行下总结！ Oracle数据库简介​    Oracle是关系型数据库，属于同名公司Oracle的产品。用户可以使用SQL语言操作数据库。 SQL语句分类以及常规使用​    SQL语言共分为五类如下所示：  DML语句：数据操作语言 ，用于对表中数据进行操作的语句，INSERT/UODATE/DELETE等。  插入： 123456--使用 INSERT INT">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-17T13:59:22.500Z">
+<meta property="og:updated_time" content="2019-07-17T14:05:11.077Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle基本使用方法">
 <meta name="twitter:description" content="今天学了Oracle数据库，对其进行下总结！ Oracle数据库简介​    Oracle是关系型数据库，属于同名公司Oracle的产品。用户可以使用SQL语言操作数据库。 SQL语句分类以及常规使用​    SQL语言共分为五类如下所示：  DML语句：数据操作语言 ，用于对表中数据进行操作的语句，INSERT/UODATE/DELETE等。  插入： 123456--使用 INSERT INT">
@@ -229,18 +229,14 @@
 <ul>
 <li><p><strong><em>指定-查询表数据：</em></strong></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--查询表数据</span></span><br><span class="line"><span class="comment">--SELECT可以理解为调取，调取数据</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT;</span><br><span class="line"><span class="comment">--查询指定字段</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">NAME</span>, <span class="keyword">ID</span> <span class="keyword">FROM</span> STUDENT;</span><br><span class="line"><span class="comment">--条件查询 可以使用&lt; &gt; != =，关系运算符 AND OR NOT,算术运算符 + - * /</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'涛'</span> <span class="keyword">AND</span> SEX = <span class="string">'男'</span>;</span><br><span class="line"><span class="comment">--配合函数查询 可以使用or来写</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> <span class="keyword">ID</span> <span class="keyword">IN</span>(<span class="string">'1500840308'</span>, <span class="string">'1501020304'</span>);</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> <span class="keyword">ID</span> = <span class="string">'1500840308'</span> <span class="keyword">OR</span> <span class="keyword">ID</span> =  <span class="string">'150020304'</span>;</span><br></pre></td></tr></table></figure>
-
-
 </li>
-</ul>
-</li>
-</ul>
-<ul>
 <li><p><strong><em>模糊-查询表数据：</em></strong></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--通过使用’_‘一个字符查询 ’%‘0-n个字符，可以搭配使用，这里举1例子,第三个字母为i的东西</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT </span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'__i%'</span>;</span><br></pre></td></tr></table></figure>
 
 
 
+</li>
+</ul>
 </li>
 </ul>
 
