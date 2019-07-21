@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Hexo</title>
+  <title>Oracle进阶应用 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="这次博客用于记录前文没有提到的细节，并且记录SQL查询语句的详细用例。 DDL语句创建表 创建带有外键的表，约束一般可以加在变量之后也能够额外使用constraints语句创建约束，这里需要注意的时，需要使用‘（）’选中表中的字段，不能使用’.’。此外，在多表关系中，一对多的情况下，外键约束创建于多的那一方，如产品分类（一）与产品（多）的关系：  12345678CREATE TABLE PROD">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle进阶应用">
+<meta property="og:url" content="http://yoursite.com/2019/07/21/Oracle查询进阶/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="这次博客用于记录前文没有提到的细节，并且记录SQL查询语句的详细用例。 DDL语句创建表 创建带有外键的表，约束一般可以加在变量之后也能够额外使用constraints语句创建约束，这里需要注意的时，需要使用‘（）’选中表中的字段，不能使用’.’。此外，在多表关系中，一对多的情况下，外键约束创建于多的那一方，如产品分类（一）与产品（多）的关系：  12345678CREATE TABLE PROD">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-21T08:37:50.244Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Oracle进阶应用">
+<meta name="twitter:description" content="这次博客用于记录前文没有提到的细节，并且记录SQL查询语句的详细用例。 DDL语句创建表 创建带有外键的表，约束一般可以加在变量之后也能够额外使用constraints语句创建约束，这里需要注意的时，需要使用‘（）’选中表中的字段，不能使用’.’。此外，在多表关系中，一对多的情况下，外键约束创建于多的那一方，如产品分类（一）与产品（多）的关系：  12345678CREATE TABLE PROD">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,130 +154,196 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Oracle查询进阶" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Oracle进阶应用
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/21/Oracle查询进阶/" class="archive-article-date">
+
+        
+        <a href="/2019/07/21/Oracle查询进阶/" class="archive-article-date">
   	<time datetime="2019-07-21T07:26:35.476Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-21</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/21/Oracle查询进阶/">Oracle进阶应用</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这次博客用于记录前文没有提到的细节，并且记录SQL查询语句的详细用例。</p>
+<h3 id="DDL语句"><a href="#DDL语句" class="headerlink" title="DDL语句"></a>DDL语句</h3><h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><ul>
+<li><strong>创建带有外键的表</strong>，约束一般可以加在变量之后也能够额外使用<strong>constraints</strong>语句创建约束，这里需要注意的时，需要使用‘<strong>（）</strong>’选中表中的字段，不能使用’.’。此外，在多表关系中，一对多的情况下，外键约束创建于多的那一方，如产品分类（一）与产品（多）的关系：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> PRODUCT(</span><br><span class="line">				PID VARCHAR2(<span class="number">32</span>),</span><br><span class="line">				<span class="keyword">NAME</span> VARCHAR2(<span class="number">100</span>),</span><br><span class="line">				PRICE <span class="built_in">NUMBER</span>(<span class="number">7</span>,<span class="number">2</span>),</span><br><span class="line">				CATEGORY_ID VARCHAR2(<span class="number">32</span>),</span><br><span class="line">				<span class="keyword">CONSTRAINTS</span> PRODUCT_PK PRIMARY <span class="keyword">KEY</span>(PID),</span><br><span class="line">				<span class="keyword">CONSTRAINT</span> PRODUCT_FK <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span>(CATEGORY_ID) <span class="keyword">REFERENCES</span> <span class="keyword">CATEGORY</span>(CID) </span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<ul>
+<li><strong>创建带有联合主键的表</strong>，联合主键一般用于多表关系中，多对多里的关系表。能够唯一的确定联合主键的组合关系。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> ORDERITEM(</span><br><span class="line">				<span class="keyword">OID</span> VARCHAR2(<span class="number">32</span>),</span><br><span class="line">				PID VARCHAR2(<span class="number">32</span>),</span><br><span class="line">				<span class="keyword">CONSTRAINTS</span> ORDERITEM_PK PRIMARY <span class="keyword">KEY</span>(<span class="keyword">OID</span>, PID),</span><br><span class="line">				<span class="keyword">CONSTRAINTS</span> ORDERITEM_FK1 <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span>(<span class="keyword">OID</span>) <span class="keyword">REFERENCES</span> ORDERS(<span class="keyword">OID</span>),</span><br><span class="line">				<span class="keyword">CONSTRAINTS</span> ORDERITEM_FK2 <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span>(PID) <span class="keyword">REFERENCES</span> PRODUCT(PID)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
+<h4 id="操作约束条件"><a href="#操作约束条件" class="headerlink" title="操作约束条件"></a>操作约束条件</h4><ul>
+<li><strong>添加约束</strong>，这里需要注意的是在ORACLE中<strong>CONSTRAINT</strong>后必须跟着约束名称才行，Mysql中似乎不需要（不确定）。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> ORDERS</span><br><span class="line"><span class="keyword">ADD</span></span><br><span class="line"><span class="keyword">CONSTRAINTS</span> XX22 <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span>(Userid) <span class="keyword">REFERENCES</span> BUYUSER(useriD);<span class="comment">--oracle一定要加约束名称</span></span><br><span class="line"><span class="comment">--下面对应添加字段用法</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> ORDERS</span><br><span class="line"><span class="keyword">ADD</span> </span><br><span class="line">userid varchar2(<span class="number">32</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>删除约束</strong>，使用DROP可以删除对应约束</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> ORDERS</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">CONSTRAINTS</span> XX22;</span><br><span class="line"><span class="comment">--下面对应删除字段用法</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> ORDERS</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">COLUMN</span> <span class="keyword">KEY</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="DQL语句"><a href="#DQL语句" class="headerlink" title="DQL语句"></a>DQL语句</h3><ul>
+<li><strong>查询满足条件的行数</strong>，程序中的AS作用为给COUNT(*)取一个别名，可以省略。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> CNT <span class="keyword">FROM</span> TEACHER1 <span class="keyword">WHERE</span> AGE &gt; <span class="number">21</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>查询字段平均数</strong>，使用AVG()函数。<strong>同COUNT()，AVG()属于聚合函数，此外还有MAX()、MIN()、ROUND()、SUM（）</strong></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">AVG</span>(AGE) <span class="keyword">AS</span> CNT <span class="keyword">FROM</span> TEACHER1 ;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>内连接查询</strong>，上文中介绍过内连接，在本文中再次提到使用INNER JOIN创建内连接，并且使用多个INNER JOIN查询想要的数据.此外，需要注意的是，在选中字段时，与约束时不同的是，这里使用的是‘.’，而不是‘（）’。<strong>内连接中，ON之后的字段，父表是主键，而子表是外键</strong></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--约束时是小括号，WHERE时用的点</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> BUYUSER <span class="keyword">INNER</span> <span class="keyword">JOIN</span> ORDERS <span class="keyword">ON</span> BUYUSER.USERID = ORDERS.USERID;</span><br><span class="line"><span class="comment">--多重内连接</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> BUYUSER.USERNAME <span class="keyword">FROM</span></span><br><span class="line">BUYUSER <span class="keyword">INNER</span> <span class="keyword">JOIN</span> ORDERS <span class="keyword">ON</span> BUYUSER.USERID = ORDERS.USERID</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> ORDERITEM <span class="keyword">ON</span> ORDERS.OID = ORDERITEM.OID</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> PRODUCT <span class="keyword">ON</span> ORDERITEM.PID = PRODUCT.PID <span class="keyword">WHERE</span> ORDERS.TOTALPRICE &lt; <span class="number">300</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>分组查询</strong>，分组查询配合聚合函数，可以做到以下功能</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--以性别分组，显示性别中的男女年龄的之和</span></span><br><span class="line"><span class="keyword">select</span> sex,<span class="keyword">sum</span>(age) <span class="keyword">from</span> t_student <span class="keyword">group</span> <span class="keyword">by</span> sex;</span><br><span class="line"><span class="comment">--以学生性别分组，显示男生和女生分别有多少？</span></span><br><span class="line"><span class="keyword">select</span> sex,<span class="keyword">count</span>(studentid) <span class="keyword">from</span> t_student <span class="keyword">group</span> <span class="keyword">by</span> sex;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/07/21/Oracle查询进阶/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/17/Oracle基本使用方法/" class="archive-article-date">
-  	<time datetime="2019-07-17T08:31:35.119Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-17</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/17/Oracle基本使用方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Oracle基本使用方法</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/17/Oracle基本使用方法/">Oracle基本使用方法</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/16/MarkDown基本使用方法/" class="archive-article-date">
-  	<time datetime="2019-07-16T13:51:22.181Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/16/MarkDown基本使用方法/">MarkDown基本使用方法</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/16/hello-world/" class="archive-article-date">
-  	<time datetime="2019-07-16T08:28:37.459Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/16/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -296,8 +366,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
