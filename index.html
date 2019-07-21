@@ -5,12 +5,12 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="dns-prefetch" href="http://yoursite.com">
+  <link rel="dns-prefetch" href="http://localhost:4000">
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://localhost:4000/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
@@ -151,6 +151,149 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-aa" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/aa/">aa</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/21/aa/" class="archive-article-date">
+  	<time datetime="2019-07-21T15:06:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="//localhost:4000/2019/07/21/aa/1563721589704.png" alt="1563721589704"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/21/aa/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-使用IDEA编写Java程序连接Oracle数据库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/使用IDEA编写Java程序连接Oracle数据库/">使用IDEA编写Java程序连接Oracle数据库</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/21/使用IDEA编写Java程序连接Oracle数据库/" class="archive-article-date">
+  	<time datetime="2019-07-21T12:23:39.574Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天主要有空，顺便写一下Java连接oracle数据库的博客。<font color="tomato">顺便说个题外话，创建MD文档时，Title冒号后要有个空格啊!</font></p>
+<h3 id="连接过程"><a href="#连接过程" class="headerlink" title="连接过程"></a>连接过程</h3><ul>
+<li><strong>下载连接Oracle所必须的 JDBC.Jar包</strong></li>
+</ul>
+<p>通过<a href="https://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html" target="_blank" rel="noopener">点击</a>进入网站，下载Jar包。</p>
+<ul>
+<li><strong>将Jar包导入IDEA</strong></li>
+</ul>
+<p>首先，在项目模块中，创建lib文件夹，将Jar包复制进去。</p>
+<p><img src="//localhost:4000/2019/07/21/使用IDEA编写Java程序连接Oracle数据库/1563719673274.png" alt="1563717780098"></p>
+<p>之后，将模块编译路径告知编译器，右击模块,选中Moudele Setting，并在弹出的选项框中打勾依赖包即可。</p>
+<p><img src="//localhost:4000/2019/07/21/使用IDEA编写Java程序连接Oracle数据库/1563717780098.png" alt="1563717780098"></p>
+<ul>
+<li><strong>编写程序</strong></li>
+</ul>
+<p>如下为简单的实现连接Oracle数据库的程序，能够插入、删除、查询。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.hust.day01.demo01;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> TaoTao</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2019/7/20 - 12:03</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JdbcDemo01</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ORACLE_URL = <span class="string">"jdbc:oracle:thin:@//localhost:1521/ORCL"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ORACLE_USER = <span class="string">"CT123"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ORACLE_PW = <span class="string">"Ct919919"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Connection connection = <span class="keyword">null</span>;</span><br><span class="line">        Statement stat;</span><br><span class="line">        ResultSet rs = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line"></span><br><span class="line">              Class.forName(<span class="string">"oracle.jdbc.driver.OracleDriver"</span>);</span><br><span class="line"></span><br><span class="line">              connection = DriverManager.getConnection(ORACLE_URL, ORACLE_USER, ORACLE_PW);</span><br><span class="line"></span><br><span class="line">              System.out.println(<span class="string">"连接已经打开"</span>);</span><br><span class="line"></span><br><span class="line">              stat = connection.createStatement();</span><br><span class="line">  <span class="comment">//            stat.executeUpdate("insert into STUDENT values('1500840303','去','女',to_date('1997-11-6', 'yyyy-mm-dd'))");</span></span><br><span class="line">              stat.executeUpdate(<span class="string">"delete from STUDENT where ID = '1500840303'"</span>);</span><br><span class="line">              rs = stat.executeQuery(<span class="string">"select  NAME, ID from STUDENT"</span>);</span><br><span class="line">              <span class="keyword">while</span>(rs.next())&#123;</span><br><span class="line">                  String ID = rs.getNString(<span class="string">"ID"</span>);</span><br><span class="line">                  String NAME = rs.getNString(<span class="string">"NAME"</span>);</span><br><span class="line">                  System.out.println(ID + <span class="string">" "</span> + NAME);</span><br><span class="line">              &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line"></span><br><span class="line">            e.printStackTrace();</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (rs != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    rs.close();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (connection != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    connection.close();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                System.out.println(<span class="string">"连接已经断开"</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/21/使用IDEA编写Java程序连接Oracle数据库/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-Oracle查询进阶" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">

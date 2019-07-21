@@ -6,19 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://localhost:4000">
-  <title>Oracle基本使用方法 | Hexo</title>
+  <title>aa | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天学了Oracle数据库，对其进行下总结！ Oracle数据库简介​    Oracle是关系型数据库，属于同名公司Oracle的产品。用户可以使用SQL语言操作数据库。 SQL语句分类以及常规使用​    SQL语言共分为五类如下所示：  DML语句：数据操作语言 ，用于对表中数据进行操作的语句，INSERT/UODATE/DELETE等。  插入： 123456--使用 INSERT INT">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Oracle基本使用方法">
-<meta property="og:url" content="http://localhost:4000/2019/07/17/Oracle基本使用方法/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="aa">
+<meta property="og:url" content="http://localhost:4000/2019/07/21/aa/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="今天学了Oracle数据库，对其进行下总结！ Oracle数据库简介​    Oracle是关系型数据库，属于同名公司Oracle的产品。用户可以使用SQL语言操作数据库。 SQL语句分类以及常规使用​    SQL语言共分为五类如下所示：  DML语句：数据操作语言 ，用于对表中数据进行操作的语句，INSERT/UODATE/DELETE等。  插入： 123456--使用 INSERT INT">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-18T13:37:20.077Z">
+<meta property="og:image" content="http://localhost:4000/2019/07/21/aa/1563721589704.png">
+<meta property="og:updated_time" content="2019-07-21T15:09:04.003Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Oracle基本使用方法">
-<meta name="twitter:description" content="今天学了Oracle数据库，对其进行下总结！ Oracle数据库简介​    Oracle是关系型数据库，属于同名公司Oracle的产品。用户可以使用SQL语言操作数据库。 SQL语句分类以及常规使用​    SQL语言共分为五类如下所示：  DML语句：数据操作语言 ，用于对表中数据进行操作的语句，INSERT/UODATE/DELETE等。  插入： 123456--使用 INSERT INT">
+<meta name="twitter:title" content="aa">
+<meta name="twitter:image" content="http://localhost:4000/2019/07/21/aa/1563721589704.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -154,90 +153,27 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Oracle基本使用方法" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-aa" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Oracle基本使用方法
+      aa
     </h1>
   
 
         
-        <a href="/2019/07/17/Oracle基本使用方法/" class="archive-article-date">
-  	<time datetime="2019-07-17T08:31:35.119Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-17</time>
+        <a href="/2019/07/21/aa/" class="archive-article-date">
+  	<time datetime="2019-07-21T15:06:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>今天学了Oracle数据库，对其进行下总结！</p>
-<h4 id="Oracle数据库简介"><a href="#Oracle数据库简介" class="headerlink" title="Oracle数据库简介"></a>Oracle数据库简介</h4><p>​    Oracle是关系型数据库，属于同名公司Oracle的产品。用户可以使用SQL语言操作数据库。</p>
-<h4 id="SQL语句分类以及常规使用"><a href="#SQL语句分类以及常规使用" class="headerlink" title="SQL语句分类以及常规使用"></a>SQL语句分类以及常规使用</h4><p>​    SQL语言共分为五类如下所示：</p>
-<ul>
-<li><p>DML语句：<strong>数据操作语言</strong> ，用于对表中<strong>数据</strong>进行操作的语句，<strong>INSERT/UODATE/DELETE</strong>等。</p>
-<ul>
-<li><p><strong><em>插入：</em></strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用 INSERT INTO VALUES插入数据</span></span><br><span class="line"><span class="comment">--插入数据时，可以指定字段输入也可以不指定字段输入</span></span><br><span class="line"><span class="comment">--不指定时需写出全部字段所需的值</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT <span class="keyword">VALUES</span> (<span class="number">1500840308</span>,<span class="string">'涛'</span>,<span class="string">'男'</span>);</span><br><span class="line"><span class="comment">--指定时，不指定的字段需要有空约束，可以通过DDL语句对约束进行修改。</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(<span class="keyword">ID</span>,<span class="keyword">NAME</span>) <span class="keyword">VALUES</span>(<span class="number">1501020304</span>,<span class="string">'栋'</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><em>更新：</em></strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用UPADATE SET WHERE对字段进行更新</span></span><br><span class="line"><span class="comment">--不加WHERE则对SET后的字段全部进行更新</span></span><br><span class="line"><span class="keyword">UPDATE</span> Student <span class="keyword">SET</span> SEX = <span class="string">'男'</span> <span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'栋'</span>;</span><br><span class="line"><span class="comment">--日期形式的更新</span></span><br><span class="line"><span class="keyword">UPDATE</span> STUDENT <span class="keyword">SET</span> BIRTHDAY = <span class="keyword">TO_DATE</span>(<span class="string">'1996-10-18'</span>, <span class="string">'YYYY-MM-DD'</span>) <span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'波'</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><em>删除</em></strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用DELETE语句对数据进行删除</span></span><br><span class="line">  <span class="keyword">DELETE</span> <span class="keyword">FROM</span> Student <span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'1'</span>;</span><br><span class="line">  <span class="comment">--使用TRUNCATE语句删除数据,删除速度快，原理为删除表后重建，难找回数据（属于DDL）</span></span><br><span class="line"><span class="keyword">TRUNCATE</span> <span class="keyword">TABLE</span> STUDENT;</span><br></pre></td></tr></table></figure>
-
-
-
-
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>DDL语句：<strong>数据定义语言</strong>， 用于对表中<strong>字段</strong>操作的语句，CREATE/ALTER/DROP等。</p>
-<ul>
-<li><p><strong><em>创建表：</em></strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用CREATE TABLE XX ();创建表</span></span><br><span class="line"><span class="comment">--创建表中，数据约束有2种创建方式，可以直接跟在数据类型后面，也可以使用CONSTRAINT单独创建。</span></span><br><span class="line"><span class="comment">--第一种</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Student(</span><br><span class="line">    <span class="keyword">ID</span> <span class="built_in">char</span>(<span class="number">3</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="keyword">Name</span> varchar2(<span class="number">2</span>)  PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">    Sex <span class="built_in">char</span>(<span class="number">2</span>)</span><br><span class="line">);</span><br><span class="line"><span class="comment">--第二种</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> STUDENT(</span><br><span class="line">	<span class="keyword">ID</span> <span class="built_in">CHAR</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">	<span class="keyword">NAME</span> VARCHAR2(<span class="number">10</span>),</span><br><span class="line">	SEX <span class="built_in">CHAR</span>(<span class="number">2</span>), </span><br><span class="line">	<span class="keyword">CONSTRAINTS</span> NAME_UNI2 <span class="keyword">UNIQUE</span> (<span class="keyword">NAME</span>, SEX)</span><br><span class="line">);<span class="comment">--性别一致，名字一致才叫违反约束,但null。null可以,与主键的区别在于主键null不能并且主键只有一个，注意需要加括号，一个也要。</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><em>修改字段</em></strong>：</p>
-<ol>
-<li><p><em>添加字段：</em></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> STUDENT <span class="keyword">ADD</span> studentsex <span class="built_in">char</span>(<span class="number">2</span>);<span class="comment">--添加在字段后面</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><em>修改字段属性：</em></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--能够MODIFY修改字段属性，包括字段数据大小、数据类型等。</span></span><br><span class="line">   <span class="comment">--能够单独修改一个属性，也能够全部一起修改。</span></span><br><span class="line">   <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> STUDENT <span class="keyword">MODIFY</span> SEX VARCHAR2(<span class="number">2</span>);</span><br><span class="line">   <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> STUDENT <span class="keyword">MODIFY</span> SEX PRIMARY <span class="keyword">KEY</span>;</span><br><span class="line">   <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> STUDENT <span class="keyword">MODIFY</span> SEX VARCHAR2(<span class="number">2</span>) PRIMARY <span class="keyword">KEY</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><em>删除字段：</em></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--删除对应字段</span></span><br><span class="line"><span class="comment">--注意得注意DROP后面得加COLUMN</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> STUDENT <span class="keyword">DROP</span> <span class="keyword">COLUMN</span> SEX;</span><br></pre></td></tr></table></figure>
-
-
-</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>DCL语句：<strong>数据控制语言</strong>， 作为开发，一般用不到，不关心，有grand这种赋予权限的语句。</p>
-</li>
-<li><p>事务控制语句：<strong>提交、回滚</strong>之类的，不关心。</p>
-</li>
-<li><p>DQL语句：<strong>数据查询语言</strong>，对于开发来说很重要。</p>
-<ul>
-<li><p><strong><em>指定-查询表数据：</em></strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--查询表数据</span></span><br><span class="line"><span class="comment">--SELECT可以理解为调取，调取数据</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT;</span><br><span class="line"><span class="comment">--查询指定字段</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">NAME</span>, <span class="keyword">ID</span> <span class="keyword">FROM</span> STUDENT;</span><br><span class="line"><span class="comment">--条件查询 可以使用&lt; &gt; != =，关系运算符 AND OR NOT,算术运算符 + - * /</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'涛'</span> <span class="keyword">AND</span> SEX = <span class="string">'男'</span>;</span><br><span class="line"><span class="comment">--配合函数查询 可以使用or来写</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> <span class="keyword">ID</span> <span class="keyword">IN</span>(<span class="string">'1500840308'</span>, <span class="string">'1501020304'</span>);</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> <span class="keyword">ID</span> = <span class="string">'1500840308'</span> <span class="keyword">OR</span> <span class="keyword">ID</span> =  <span class="string">'150020304'</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><em>模糊-查询表数据：</em></strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--通过使用’_‘一个字符查询 ’%‘0-n个字符，可以搭配使用，这里举1例子,第三个字母为i的东西</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT </span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'__i%'</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><em>连接查询：</em></strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--连接查询，即使用语句对多个表（一般情况为2个表）进行笛卡尔积，其实也就是乘法</span></span><br><span class="line">  <span class="comment">--如下为比较偏门的笛卡尔积使用方式，将2个表进行乘法运算</span></span><br><span class="line">  <span class="comment">--内连接，两个表无主次关系</span></span><br><span class="line">  <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT, STUDENT2;<span class="comment">--非常规</span></span><br><span class="line">  <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">INNER</span> <span class="keyword">JOIN</span> STUDENT2;<span class="comment">--常规</span></span><br><span class="line">  <span class="comment">--这种乘法运算，施加以条件，可以用作为父子表的结合，如多个课程分数对应一个人的表，和人名信息的表对应起来对应起来。</span></span><br><span class="line">  <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT, STUDENT4 <span class="keyword">WHERE</span> STUDENT.NAME = STUDENT4.NAME;<span class="comment">--非常规</span></span><br><span class="line">  <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">INNER</span> <span class="keyword">JOIN</span> STUDENT4 <span class="keyword">ON</span> STUDENT.NAME = STUDENT4.NAME;<span class="comment">--常规</span></span><br><span class="line">  <span class="comment">--外连接，两个表分主次关系</span></span><br><span class="line">  <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> STUDENT4 <span class="keyword">ON</span> STUDENT.NAME = STUDENT4.NAME; <span class="comment">--理解的不太好以后再来看，先这样吧。</span></span><br><span class="line">  <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">RIGHT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> STUDENT4 <span class="keyword">ON</span> STUDENT.NAME = STUDENT4.NAME;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
+        <p><img src="//localhost:4000/2019/07/21/aa/1563721589704.png" alt="1563721589704"></p>
 
       
 
@@ -317,7 +253,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://localhost:4000/2019/07/17/Oracle基本使用方法/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://localhost:4000/2019/07/21/aa/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -331,18 +267,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/07/21/Oracle查询进阶/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Oracle进阶应用
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/07/16/MarkDown基本使用方法/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">MarkDown基本使用方法</div>
+    <a href="/2019/07/21/使用IDEA编写Java程序连接Oracle数据库/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用IDEA编写Java程序连接Oracle数据库</div>
       <i class="icon-circle-right"></i>
     </a>
   
