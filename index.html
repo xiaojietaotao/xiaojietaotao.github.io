@@ -152,6 +152,89 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-PostMan篇-介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/07/PostMan篇-介绍/">PostMan篇--介绍</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/07/PostMan篇-介绍/" class="archive-article-date">
+  	<time datetime="2019-08-07T13:18:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="PostMan介绍"><a href="#PostMan介绍" class="headerlink" title="PostMan介绍"></a>PostMan介绍</h4><p>​        Postman是由Postdot Technologies公司打造的一款功能强大的调试HTTP接口的工具，它最早是Chrome中最受欢迎的插件之一，现已扩展到Mac，Windows和Linux客户端。</p>
+<p>​        本人使用的就是，PostMan在windows下的客户端。在介绍使用方法前，先介绍Http接口调试时所需要的知识。</p>
+<h4 id="接口请求信息"><a href="#接口请求信息" class="headerlink" title="接口请求信息"></a>接口请求信息</h4><p>四个重要信息：<em>URL、方法、头域、参数</em>。</p>
+<p><img src="/1565187788402.png" alt></p>
+<h4 id="PostMan请求有道实例"><a href="#PostMan请求有道实例" class="headerlink" title="PostMan请求有道实例"></a>PostMan请求有道实例</h4><p><strong>实施过程：</strong></p>
+<p>通过使用上文Chrome抓捕的有道翻译请求响应包。这里需要注意的是，有些参数以及头域信息属于必要信息，必须填才能返回资源，下文有介绍。</p>
+<ul>
+<li>填写Url地址：将上文图中URL复制于窗口</li>
+</ul>
+<p><img src="/2019/08/07/PostMan篇-介绍/1565188168749.png" alt></p>
+<ul>
+<li>填写请求方式：写入POST方法</li>
+<li>填写请求头域：填写必填头域，<strong>Content-Type</strong> 。在本次请求中，测试出还有一个必填头域<strong>Referer</strong>，即来自于哪个网站的信息需要填写。需要说明的是，有时<strong>Content-Type</strong>可以不填写的原是PostMan默认不填时为<strong>application/x-www-form-urlencoded</strong>。</li>
+</ul>
+<p><img src="/2019/08/07/PostMan篇-介绍/1565188913262.png" alt></p>
+<ul>
+<li>填写参数（数据）：有些数据也为必填选项，除了在网页中用户填写的，还有一些默认的数据也需要填写。在本次中i、client、salt、sign、keyfrom、version都是必填选项，不然会报错，其中version不填不会报错，但返回的东西，似乎是古老版本的东西。</li>
+</ul>
+<p><img src="/2019/08/07/PostMan篇-介绍/1565189264124.png" alt></p>
+<p><strong>实施结果：</strong></p>
+<p><img src="/2019/08/07/PostMan篇-介绍/1565189288413.png" alt></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/07/PostMan篇-介绍/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Java-IO流篇" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
