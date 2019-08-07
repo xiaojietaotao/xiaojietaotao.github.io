@@ -152,6 +152,108 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Java-IO流篇" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/07/Java-IO流篇/">Java IO流篇-概念与理解</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/07/Java-IO流篇/" class="archive-article-date">
+  	<time datetime="2019-08-07T09:14:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Java-IO流概念与理解"><a href="#Java-IO流概念与理解" class="headerlink" title="Java IO流概念与理解"></a>Java IO流概念与理解</h3><h4 id="IO流官方概念"><a href="#IO流官方概念" class="headerlink" title="IO流官方概念"></a>IO流官方概念</h4><ul>
+<li><p><strong>官方解释：</strong>JavaIO流，是一种计算机用语。主要是用于处理数据的传输。</p>
+</li>
+<li><p><strong>分类方式：</strong></p>
+</li>
+</ul>
+<ol>
+<li>按流的方向分为：输入流与输出流。</li>
+<li>按流的数据单位不同分为：字节流与字符流。</li>
+<li>按流的功能不同分为：节点流和处理流。</li>
+</ol>
+<ul>
+<li><strong>IO流结构：</strong>具有四大抽象类，分别为<em>InputStream</em>、<em>OutputStream</em>、<em>Reader</em>、<em>Writer</em>。</li>
+</ul>
+<p><img src="/2019/08/07/Java-IO流篇/1565182372015.png" alt></p>
+<h4 id="自我总结"><a href="#自我总结" class="headerlink" title="自我总结"></a>自我总结</h4><ul>
+<li><strong>IO流的作用的理解</strong></li>
+</ul>
+<p>从上文JavaIO流结构中可以看出，IO流总共分为，字节流与字符流。具有操作字节以及字符的能力，其中这里<strong>操作</strong>指的是<strong>写入以及获取</strong>，即IO流包就是为了操作字符以及字节的。按照原始概念来说，其实也就是操作二进制数据，字符也是二进制数据。</p>
+<ul>
+<li><p><strong>IO流结构分析：</strong>仔细观察上述结构，其实很清晰。</p>
+<ul>
+<li><p>每个抽象类都具有一个包装流，即Buffered，为了减少操作磁盘的次数而设置的。</p>
+</li>
+<li><p>字节流与字符流都具有一个读取与输出字节（字符）的子类，分别为：</p>
+<ul>
+<li><p><em>FileInputStream</em></p>
+</li>
+<li><p><em>FileOutputStream</em></p>
+</li>
+<li><p><em>InputStreamReader</em></p>
+</li>
+<li><p><em>OutputStreamWriter</em></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><em>注：（字节型流，能够操作二进制数据，这里的数据包括图片，视频，文本等，字符型只能够操作字符）</em></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/07/Java-IO流篇/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-关于异常的学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

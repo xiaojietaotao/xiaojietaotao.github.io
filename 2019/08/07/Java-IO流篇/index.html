@@ -6,15 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href>
-  <title>Archives: 2019 | TaoTao-Blog</title>
+  <title>Java IO流篇-概念与理解 | TaoTao-Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="TaoTao-Blog">
-<meta property="og:url" content="/archives/2019/index.html">
+  <meta name="description" content="Java IO流概念与理解IO流官方概念 官方解释：JavaIO流，是一种计算机用语。主要是用于处理数据的传输。  分类方式：    按流的方向分为：输入流与输出流。 按流的数据单位不同分为：字节流与字符流。 按流的功能不同分为：节点流和处理流。   IO流结构：具有四大抽象类，分别为InputStream、OutputStream、Reader、Writer。   自我总结 IO流的作用的理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java IO流篇-概念与理解">
+<meta property="og:url" content="/2019/08/07/Java-IO流篇/index.html">
 <meta property="og:site_name" content="TaoTao-Blog">
+<meta property="og:description" content="Java IO流概念与理解IO流官方概念 官方解释：JavaIO流，是一种计算机用语。主要是用于处理数据的传输。  分类方式：    按流的方向分为：输入流与输出流。 按流的数据单位不同分为：字节流与字符流。 按流的功能不同分为：节点流和处理流。   IO流结构：具有四大抽象类，分别为InputStream、OutputStream、Reader、Writer。   自我总结 IO流的作用的理解">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="/2019/08/07/Java-IO流篇/1565182372015.png">
+<meta property="og:updated_time" content="2019-08-07T13:13:35.932Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TaoTao-Blog">
+<meta name="twitter:title" content="Java IO流篇-概念与理解">
+<meta name="twitter:description" content="Java IO流概念与理解IO流官方概念 官方解释：JavaIO流，是一种计算机用语。主要是用于处理数据的传输。  分类方式：    按流的方向分为：输入流与输出流。 按流的数据单位不同分为：字节流与字符流。 按流的功能不同分为：节点流和处理流。   IO流结构：具有四大抽象类，分别为InputStream、OutputStream、Reader、Writer。   自我总结 IO流的作用的理解">
+<meta name="twitter:image" content="/2019/08/07/Java-IO流篇/1565182372015.png">
   
     <link rel="alternative" href="/atom.xml" title="TaoTao-Blog" type="application/atom+xml">
   
@@ -150,238 +156,195 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Java-IO流篇" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Java IO流篇-概念与理解
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/07/Java-IO流篇/" class="archive-article-date">
+
+        
+        <a href="/2019/08/07/Java-IO流篇/" class="archive-article-date">
   	<time datetime="2019-08-07T09:14:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-07</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/07/Java-IO流篇/">Java IO流篇-概念与理解</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Java-IO流概念与理解"><a href="#Java-IO流概念与理解" class="headerlink" title="Java IO流概念与理解"></a>Java IO流概念与理解</h3><h4 id="IO流官方概念"><a href="#IO流官方概念" class="headerlink" title="IO流官方概念"></a>IO流官方概念</h4><ul>
+<li><p><strong>官方解释：</strong>JavaIO流，是一种计算机用语。主要是用于处理数据的传输。</p>
+</li>
+<li><p><strong>分类方式：</strong></p>
+</li>
+</ul>
+<ol>
+<li>按流的方向分为：输入流与输出流。</li>
+<li>按流的数据单位不同分为：字节流与字符流。</li>
+<li>按流的功能不同分为：节点流和处理流。</li>
+</ol>
+<ul>
+<li><strong>IO流结构：</strong>具有四大抽象类，分别为<em>InputStream</em>、<em>OutputStream</em>、<em>Reader</em>、<em>Writer</em>。</li>
+</ul>
+<p><img src="/2019/08/07/Java-IO流篇/1565182372015.png" alt></p>
+<h4 id="自我总结"><a href="#自我总结" class="headerlink" title="自我总结"></a>自我总结</h4><ul>
+<li><strong>IO流的作用的理解</strong></li>
+</ul>
+<p>从上文JavaIO流结构中可以看出，IO流总共分为，字节流与字符流。具有操作字节以及字符的能力，其中这里<strong>操作</strong>指的是<strong>写入以及获取</strong>，即IO流包就是为了操作字符以及字节的。按照原始概念来说，其实也就是操作二进制数据，字符也是二进制数据。</p>
+<ul>
+<li><p><strong>IO流结构分析：</strong>仔细观察上述结构，其实很清晰。</p>
+<ul>
+<li><p>每个抽象类都具有一个包装流，即Buffered，为了减少操作磁盘的次数而设置的。</p>
+</li>
+<li><p>字节流与字符流都具有一个读取与输出字节（字符）的子类，分别为：</p>
+<ul>
+<li><p><em>FileInputStream</em></p>
+</li>
+<li><p><em>FileOutputStream</em></p>
+</li>
+<li><p><em>InputStreamReader</em></p>
+</li>
+<li><p><em>OutputStreamWriter</em></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><em>注：（字节型流，能够操作二进制数据，这里的数据包括图片，视频，文本等，字符型只能够操作字符）</em></p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http:/2019/08/07/Java-IO流篇/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/04/关于异常的学习/" class="archive-article-date">
-  	<time datetime="2019-08-04T13:54:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-04</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/04/关于异常的学习/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">关于异常的学习</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/04/关于异常的学习/">关于异常的学习</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/24/变量存储机制/" class="archive-article-date">
-  	<time datetime="2019-07-24T01:48:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/24/变量存储机制/">变量存储机制</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/21/使用IDEA编写Java程序连接Oracle数据库/" class="archive-article-date">
-  	<time datetime="2019-07-21T12:23:39.574Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/21/使用IDEA编写Java程序连接Oracle数据库/">使用IDEA编写Java程序连接Oracle数据库</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/21/Oracle查询进阶/" class="archive-article-date">
-  	<time datetime="2019-07-21T07:26:35.476Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/21/Oracle查询进阶/">Oracle进阶应用</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/17/Oracle基本使用方法/" class="archive-article-date">
-  	<time datetime="2019-07-17T08:31:35.119Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/17/Oracle基本使用方法/">Oracle基本使用方法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/16/MarkDown基本使用方法/" class="archive-article-date">
-  	<time datetime="2019-07-16T13:51:22.181Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/16/MarkDown基本使用方法/">MarkDown基本使用方法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/16/hello-world/" class="archive-article-date">
-  	<time datetime="2019-07-16T08:28:37.459Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/16/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -404,8 +367,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
