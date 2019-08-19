@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href>
-  <title>Archives: 2019 | TaoTao-Blog</title>
+  <title>两数相加_leetcode0002 | TaoTao-Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="TaoTao-Blog">
-<meta property="og:url" content="/archives/2019/index.html">
+  <meta name="description" content="题目You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return">
+<meta property="og:type" content="article">
+<meta property="og:title" content="两数相加_leetcode0002">
+<meta property="og:url" content="/2019/08/19/两数相加-leetcode0002/index.html">
 <meta property="og:site_name" content="TaoTao-Blog">
+<meta property="og:description" content="题目You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="/2019/08/19/两数相加-leetcode0002/1566205168651.png">
+<meta property="og:image" content="/2019/08/19/两数相加-leetcode0002/1566205289375.png">
+<meta property="og:updated_time" content="2019-08-19T09:12:38.914Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TaoTao-Blog">
+<meta name="twitter:title" content="两数相加_leetcode0002">
+<meta name="twitter:description" content="题目You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return">
+<meta name="twitter:image" content="/2019/08/19/两数相加-leetcode0002/1566205168651.png">
   
     <link rel="alternative" href="/atom.xml" title="TaoTao-Blog" type="application/atom+xml">
   
@@ -150,295 +157,176 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-两数相加-leetcode0002" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      两数相加_leetcode0002
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/19/两数相加-leetcode0002/" class="archive-article-date">
+
+        
+        <a href="/2019/08/19/两数相加-leetcode0002/" class="archive-article-date">
   	<time datetime="2019-08-19T08:49:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-19</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/19/两数相加-leetcode0002/">两数相加_leetcode0002</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p>You are given two <strong>non-empty</strong> linked lists representing two non-negative integers. The digits are stored in <strong>reverse order</strong> and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.</p>
+<p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)</span><br><span class="line">Output: 7 -&gt; 0 -&gt; 8</span><br><span class="line">Explanation: 342 + 465 = 807.</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>思路一：把各节点直接相加，这需要有进位，和小学加法很相似。</p>
+<p>思路二：把链表先转换为整型数值，进行相加，再转换为链表返回。</p>
+<h4 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h4><p>思路一程序：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function">ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> results = listToInt(l1) + listToInt(l2);</span><br><span class="line">        <span class="keyword">return</span> intToList(results);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">long</span> <span class="title">listToInt</span><span class="params">(ListNode l)</span></span>&#123;</span><br><span class="line">        String value = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(l != <span class="keyword">null</span>)&#123;</span><br><span class="line">            value += l.val + <span class="string">""</span>;</span><br><span class="line">            l = l.next;</span><br><span class="line">        &#125;</span><br><span class="line">        StringBuffer tempStringBuffer = <span class="keyword">new</span> StringBuffer(value);</span><br><span class="line">        value = tempStringBuffer.reverse().toString();</span><br><span class="line">        <span class="keyword">long</span> valueInt = Long.parseLong(value);</span><br><span class="line">        <span class="keyword">return</span> valueInt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ListNode <span class="title">intToList</span><span class="params">(<span class="keyword">long</span> value)</span></span>&#123;</span><br><span class="line">        String valStr = Long.toString(value);</span><br><span class="line">        String valRevStr = <span class="keyword">new</span> StringBuffer(valStr).reverse().toString();</span><br><span class="line">        <span class="keyword">char</span>[] valCharArr= valRevStr.toCharArray();</span><br><span class="line">        ListNode dummyRoot = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">        ListNode ptr  = dummyRoot;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; valCharArr.length; i++) &#123;</span><br><span class="line">            ptr.next = <span class="keyword">new</span> ListNode(Integer.valueOf(String.valueOf(valCharArr[i])));</span><br><span class="line">            ptr = ptr.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dummyRoot.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>思路二程序：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">Solution003</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> ListNode ZERO = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">    <span class="function">ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> addTwoNumbers(l1, l2, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2, <span class="keyword">int</span> carry)</span></span>&#123;</span><br><span class="line">        ListNode dummyRoot = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">        ListNode ptr = dummyRoot;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(!(l1 == ZERO &amp;&amp; l2 == ZERO &amp;&amp; carry == <span class="number">0</span>))&#123;</span><br><span class="line">            <span class="keyword">int</span> sum = l1.val + l2.val + carry;</span><br><span class="line">            <span class="keyword">int</span> l3Val = sum % <span class="number">10</span>;</span><br><span class="line">            carry = sum / <span class="number">10</span>;</span><br><span class="line">            ptr.next = <span class="keyword">new</span> ListNode(l3Val);</span><br><span class="line"></span><br><span class="line">            ptr = ptr.next;</span><br><span class="line">            l1 = nullOrZero(l1);</span><br><span class="line">            l2 = nullOrZero(l2);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dummyRoot.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ListNode <span class="title">nullOrZero</span><span class="params">(ListNode l)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> l.next != <span class="keyword">null</span> ? l.next : ZERO;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h4><p>思路一：</p>
+<p><img src="/2019/08/19/两数相加-leetcode0002/1566205168651.png" alt></p>
+<p>思路二：</p>
+<p><img src="/2019/08/19/两数相加-leetcode0002/1566205289375.png" alt></p>
+<h4 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h4><p>对于整个题目，</p>
+<p>思路一：链表转换为整型后,可以很方便计算结果，不用考虑链表的长度等，比如两个链表不一样长等，因为直接转换成了数字计算，比较方便，但相应的，因为需要转换成数字来算，所以数值大小有了限制，在long的情况下还有4个例子没通过。 结论：思路简单，数值大小问题不能很好解决。</p>
+<p>思路二：链表节点之间直接计算，相比<strong>思路一</strong>，需要考虑1）链表长短不一的情况，2）最后一位两两相加有进位等2种情况。</p>
+<p>处理1）：经过分析，长度不一时，给予补充0节点即可进行运算。</p>
+<p>处理2）：在while中加入进位carry必须为0时才能结束循环。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http:/2019/08/19/两数相加-leetcode0002/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/19/双数之和-leetcode0001/" class="archive-article-date">
-  	<time datetime="2019-08-19T08:37:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-19</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/19/双数之和-leetcode0001/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">双数之和_leetcode0001</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/19/双数之和-leetcode0001/">双数之和_leetcode0001</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/07/PostMan篇-介绍/" class="archive-article-date">
-  	<time datetime="2019-08-07T13:18:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/07/PostMan篇-介绍/">PostMan篇--介绍</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/07/Java-IO流篇/" class="archive-article-date">
-  	<time datetime="2019-08-07T09:14:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/07/Java-IO流篇/">Java IO流篇-概念与理解</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/04/关于异常的学习/" class="archive-article-date">
-  	<time datetime="2019-08-04T13:54:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/04/关于异常的学习/">关于异常的学习</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/24/变量存储机制/" class="archive-article-date">
-  	<time datetime="2019-07-24T01:48:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/24/变量存储机制/">变量存储机制</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/21/使用IDEA编写Java程序连接Oracle数据库/" class="archive-article-date">
-  	<time datetime="2019-07-21T12:23:39.574Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/21/使用IDEA编写Java程序连接Oracle数据库/">使用IDEA编写Java程序连接Oracle数据库</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/21/Oracle查询进阶/" class="archive-article-date">
-  	<time datetime="2019-07-21T07:26:35.476Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/21/Oracle查询进阶/">Oracle进阶应用</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/17/Oracle基本使用方法/" class="archive-article-date">
-  	<time datetime="2019-07-17T08:31:35.119Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/17/Oracle基本使用方法/">Oracle基本使用方法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/16/MarkDown基本使用方法/" class="archive-article-date">
-  	<time datetime="2019-07-16T13:51:22.181Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/16/MarkDown基本使用方法/">MarkDown基本使用方法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2019/page/2/">2</a><a class="extend next" rel="next" href="/archives/2019/page/2/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -462,8 +350,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
