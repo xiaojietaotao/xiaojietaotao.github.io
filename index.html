@@ -152,6 +152,186 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-HashMap原理（有源码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/22/HashMap原理（有源码/">HashMap原理（有源码)</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/22/HashMap原理（有源码/" class="archive-article-date">
+  	<time datetime="2019-09-22T12:06:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>​        本篇介绍开发中常用的一个集合类-HashMap。HashMap允许Put Null键以及Null值，通过使用键计算哈希值，通过使用散列函数得到桶的位置，null键值为0。哈希表解决冲突一般分为，开放地址法以及拉链法，Java中为拉链法，即把对象存入桶后的链表以及红黑树中。HashMap是非线程安全类，原因是咋多个线程进行扩容时会存在死循环。</p>
+<p>​        以下为HashMap结构，在Java1.8中，HashMap为数组+链表+红黑树。</p>
+<p><img src="/2019/09/22/HashMap原理（有源码/1569159882953.png" alt></p>
+<h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><p>四个构造方案</p>
+<p>1、构造一个空的HashMap，无传入形参，默认装载容量为16，装载因子为0.75f。</p>
+<p>2、构造一个HashMap，传入一个形参，装载容量，可以初始化初始装载容量。</p>
+<p>3、构造一个HashMap，传入装载因子以及装哉容量，改变装载容量以及装载因子。</p>
+<p>4、构造一个HashMap，将另一个 Map 中的映射拷贝一份到自己的存储结构中来，这个方法不是很常用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Constructs an empty &lt;tt&gt;HashMap&lt;/tt&gt; with the default initial capacity</span></span><br><span class="line"><span class="comment">//(16) and the default load factor (0.75).</span></span><br><span class="line"><span class="comment">//构造一个空的HashMap，默认散列数组为16，装载因子为0.75f</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">this</span>.loadFactor = DEFAULT_LOAD_FACTOR; <span class="comment">// all other fields defaulted</span></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造一个HashMap，可以改变装载容量</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">this</span>(initialCapacity, DEFAULT_LOAD_FACTOR);</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">//改变转载容量以及装载因子</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity, <span class="keyword">float</span> loadFactor)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>)</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illegal initial capacity: "</span> +</span><br><span class="line">                                              initialCapacity);</span><br><span class="line">       <span class="keyword">if</span> (initialCapacity &gt; MAXIMUM_CAPACITY)</span><br><span class="line">           initialCapacity = MAXIMUM_CAPACITY;</span><br><span class="line">       <span class="keyword">if</span> (loadFactor &lt;= <span class="number">0</span> || Float.isNaN(loadFactor))</span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Illegal load factor: "</span> +</span><br><span class="line">                                              loadFactor);</span><br><span class="line">       <span class="keyword">this</span>.loadFactor = loadFactor;</span><br><span class="line">       <span class="keyword">this</span>.threshold = tableSizeFor(initialCapacity);</span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">//传入一个Map</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">(Map&lt;? extends K, ? extends V&gt; m)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">this</span>.loadFactor = DEFAULT_LOAD_FACTOR;</span><br><span class="line">       putMapEntries(m, <span class="keyword">false</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用HashMap"><a href="#使用HashMap" class="headerlink" title="使用HashMap"></a>使用HashMap</h3><p>下面通过一个例子，说明下HashMap的基本使用方式。如下程序所示，程序中包含插入以及删除键值对，以及对HashMap的遍历。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    HashMap&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    map.put(<span class="number">7</span>,<span class="number">2</span>);</span><br><span class="line">    map.put(<span class="number">11</span>,<span class="number">2</span>);</span><br><span class="line">    map.put(<span class="number">43</span>,<span class="number">2</span>);</span><br><span class="line">    map.put(<span class="number">59</span>,<span class="number">2</span>);</span><br><span class="line">    map.put(<span class="number">19</span>,<span class="number">2</span>);</span><br><span class="line">    map.put(<span class="number">3</span>,<span class="number">2</span>);</span><br><span class="line">    map.put(<span class="number">35</span>,<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (Integer key : map.keySet())&#123;</span><br><span class="line">        System.out.print(key + <span class="string">"-&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">    System.out.println(map.containsKey(<span class="number">19</span>));</span><br><span class="line">    map.remove(<span class="number">19</span>);</span><br><span class="line">    <span class="keyword">for</span> (Integer key : map.keySet())&#123;</span><br><span class="line">        System.out.print(key + <span class="string">"-&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">    System.out.println(map.containsKey(<span class="number">19</span>));</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/09/22/HashMap原理（有源码/1569202894916.png" alt></p>
+<h3 id="Put详细过程"><a href="#Put详细过程" class="headerlink" title="Put详细过程"></a>Put详细过程</h3><p>由以下可以看出，实现Put功能的函数主要是putVal，但在调用putVal的时候，调用了hash函数，hash（）是由hashcode（）以及扰动函数组成即可，这里的扰动函数是将键值的hashcode的高16位与低16位进行异或，这样的目的是为了将高16位参与到后期的取模运算中，不然高16位在取模过程是运用不到的，相当于浪费了。<strong>值得注意的是，当传入的键值是null时，key的hash值则为0。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>插入过程：</p>
+<p>1、调用put函数</p>
+<p>2、将put封装成putVal</p>
+<p>3、通过判断table是否是null，构建散列桶，注意，在调用hash时，并未对散列桶进行初始化。延迟到插入时才进行初始化。</p>
+<p>4、对传入的hash值与数组大小进行取模运算，p = tab[i = (n - 1) &amp; hash])，这里的取模运算有点特殊。只有当hash是2的次幂时，必然有（n-1）&amp;hash == hash%n。</p>
+<p>5、判断所在散列桶是否已经存有键值对，没有则新建节点Node，该Node为内部类，存有键值，hash值，值，下一个顶点等信息。</p>
+<table>
+<thead>
+<tr>
+<th>NOde类信息</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>哈希值 hash</td>
+<td>散列函数必要参数，得到数组位置</td>
+</tr>
+<tr>
+<td>键 key</td>
+<td>需存储的键</td>
+</tr>
+<tr>
+<td>值 value</td>
+<td>需存储的值</td>
+</tr>
+<tr>
+<td>下一个节点 next</td>
+<td>下一个节点位置</td>
+</tr>
+</tbody></table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">Map</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> hash;</span><br><span class="line">    <span class="keyword">final</span> K key;</span><br><span class="line">    V value;</span><br><span class="line">    Node&lt;K,V&gt; next;</span><br><span class="line"></span><br><span class="line">    Node(<span class="keyword">int</span> hash, K key, V value, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">        <span class="keyword">this</span>.hash = hash;</span><br><span class="line">        <span class="keyword">this</span>.key = key;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">        <span class="keyword">this</span>.next = next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>6、当散列到的桶已经存有键值，则判断桶的第一个位置是否为自己要存储的键值</p>
+<p>​            如果是则是重复，根据传入的第3个参数，默认为允许重复，对值进行覆盖。</p>
+<p>​            如果不是则判断为红黑树还是链表，对节点进行插入。</p>
+<p>链表：插入的地方为节点末尾，通过不断遍历链表判断键是否为null以及相同，插入新节点和修改value处理。</p>
+<p>7、扩容：判断插入的节点是否大于阈值，大于的话则对其进行2倍扩容。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;<span class="comment">//将put封装成putVal</span></span><br><span class="line">    <span class="keyword">return</span> putVal(hash(key), key, value, <span class="keyword">false</span>, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">final</span> V <span class="title">putVal</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">boolean</span> onlyIfAbsent,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">boolean</span> evict)</span> </span>&#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; <span class="keyword">int</span> n, i;</span><br><span class="line">    <span class="keyword">if</span> ((tab = table) == <span class="keyword">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">        n = (tab = resize()).length;</span><br><span class="line">    <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="keyword">null</span>)</span><br><span class="line">        tab[i] = newNode(hash, key, value, <span class="keyword">null</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        Node&lt;K,V&gt; e; K k;</span><br><span class="line">        <span class="keyword">if</span> (p.hash == hash &amp;&amp;</span><br><span class="line">            ((k = p.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">            e = p;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (p <span class="keyword">instanceof</span> TreeNode)</span><br><span class="line">            e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(<span class="keyword">this</span>, tab, hash, key, value);</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> binCount = <span class="number">0</span>; ; ++binCount) &#123;</span><br><span class="line">                <span class="keyword">if</span> ((e = p.next) == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    p.next = newNode(hash, key, value, <span class="keyword">null</span>);</span><br><span class="line">                    <span class="keyword">if</span> (binCount &gt;= TREEIFY_THRESHOLD - <span class="number">1</span>) <span class="comment">// -1 for 1st</span></span><br><span class="line">                        treeifyBin(tab, hash);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">                    ((k = e.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                p = e;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123; <span class="comment">// existing mapping for key</span></span><br><span class="line">            V oldValue = e.value;</span><br><span class="line">            <span class="keyword">if</span> (!onlyIfAbsent || oldValue == <span class="keyword">null</span>)</span><br><span class="line">                e.value = value;</span><br><span class="line">            afterNodeAccess(e);</span><br><span class="line">            <span class="keyword">return</span> oldValue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ++modCount;</span><br><span class="line">    <span class="keyword">if</span> (++size &gt; threshold)</span><br><span class="line">        resize();</span><br><span class="line">    afterNodeInsertion(evict);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/22/HashMap原理（有源码/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-排序2-快速排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/02/排序2-快速排序/">排序2-快速排序</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/02/排序2-快速排序/" class="archive-article-date">
+  	<time datetime="2019-09-02T12:44:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="快速原理"><a href="#快速原理" class="headerlink" title="快速原理"></a>快速原理</h4>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/02/排序2-快速排序/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-排序1-桶排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -848,235 +1028,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/07/21/使用IDEA编写Java程序连接Oracle数据库/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Oracle查询进阶" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/21/Oracle查询进阶/">Oracle进阶应用</a>
-    </h1>
-  
-
-        
-        <a href="/2019/07/21/Oracle查询进阶/" class="archive-article-date">
-  	<time datetime="2019-07-21T07:26:35.476Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这次博客记录前文没有提到的细节，并且记录SQL查询语句的详细用例。</p>
-<h3 id="DDL语句"><a href="#DDL语句" class="headerlink" title="DDL语句"></a>DDL语句</h3><h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><ul>
-<li><strong>创建带有外键的表</strong>，约束一般可以加在变量之后也能够额外使用<strong>constraints</strong>语句创建约束，这里需要注意的时，需要使用‘<strong>（）</strong>’选中表中的字段，不能使用’.’。此外，在多表关系中，一对多的情况下，外键约束创建于多的那一方，如产品分类（一）与产品（多）的关系：</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> PRODUCT(</span><br><span class="line">    PID VARCHAR2(<span class="number">32</span>),</span><br><span class="line">    <span class="keyword">NAME</span> VARCHAR2(<span class="number">100</span>),</span><br><span class="line">    PRICE <span class="built_in">NUMBER</span>(<span class="number">7</span>,<span class="number">2</span>),</span><br><span class="line">    CATEGORY_ID VARCHAR2(<span class="number">32</span>),</span><br><span class="line">    <span class="keyword">CONSTRAINTS</span> PRODUCT_PK PRIMARY <span class="keyword">KEY</span>(PID),</span><br><span class="line">    <span class="keyword">CONSTRAINT</span> PRODUCT_FK <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span>(CATEGORY_ID) <span class="keyword">REFERENCES</span> <span class="keyword">CATEGORY</span>(CID) </span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>创建带有联合主键的表</strong>，联合主键一般用于多表关系中，多对多里的关系表。能够唯一的确定联合主键的组合关系。</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> ORDERITEM(</span><br><span class="line">    <span class="keyword">OID</span> VARCHAR2(<span class="number">32</span>),</span><br><span class="line">    PID VARCHAR2(<span class="number">32</span>),</span><br><span class="line">    <span class="keyword">CONSTRAINTS</span> ORDERITEM_PK PRIMARY <span class="keyword">KEY</span>(<span class="keyword">OID</span>, PID),</span><br><span class="line">    <span class="keyword">CONSTRAINTS</span> ORDERITEM_FK1 <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span>(<span class="keyword">OID</span>) <span class="keyword">REFERENCES</span> ORDERS(<span class="keyword">OID</span>),</span><br><span class="line">    <span class="keyword">CONSTRAINTS</span> ORDERITEM_FK2 <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span>(PID) <span class="keyword">REFERENCES</span> PRODUCT(PID)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<h4 id="操作约束条件"><a href="#操作约束条件" class="headerlink" title="操作约束条件"></a>操作约束条件</h4><ul>
-<li><strong>添加约束</strong>，这里需要注意的是在ORACLE中<strong>CONSTRAINT</strong>后必须跟着约束名称才行，Mysql中似乎不需要（不确定）。</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> ORDERS</span><br><span class="line"><span class="keyword">ADD</span></span><br><span class="line"><span class="keyword">CONSTRAINTS</span> XX22 <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span>(Userid) <span class="keyword">REFERENCES</span> BUYUSER(useriD);<span class="comment">--oracle一定要加约束名称</span></span><br><span class="line"><span class="comment">--下面对应添加字段用法</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> ORDERS</span><br><span class="line"><span class="keyword">ADD</span> </span><br><span class="line">userid varchar2(<span class="number">32</span>);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>删除约束</strong>，使用DROP可以删除对应约束</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> ORDERS</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">CONSTRAINTS</span> XX22;</span><br><span class="line"><span class="comment">--下面对应删除字段用法</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> ORDERS</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">COLUMN</span> <span class="keyword">KEY</span>;</span><br></pre></td></tr></table></figure>
-
-<h3 id="DQL语句"><a href="#DQL语句" class="headerlink" title="DQL语句"></a>DQL语句</h3><ul>
-<li><strong>查询满足条件的行数</strong>，程序中的AS作用为给COUNT(*)取一个别名，可以省略。</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> CNT <span class="keyword">FROM</span> TEACHER1 <span class="keyword">WHERE</span> AGE &gt; <span class="number">21</span>;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>查询字段平均数</strong>，使用AVG()函数。<strong>同COUNT()，AVG()属于聚合函数，此外还有MAX()、MIN()、ROUND()、SUM（）</strong></li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">AVG</span>(AGE) <span class="keyword">AS</span> CNT <span class="keyword">FROM</span> TEACHER1 ;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>内连接查询</strong>，上文中介绍过内连接，在本文中再次提到使用INNER JOIN创建内连接，并且使用多个INNER JOIN查询想要的数据.此外，需要注意的是，在选中字段时，与约束时不同的是，这里使用的是‘.’，而不是‘（）’。<strong>内连接中，ON之后的字段，父表是主键，而子表是外键</strong></li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--约束时是小括号，WHERE时用的点</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> BUYUSER <span class="keyword">INNER</span> <span class="keyword">JOIN</span> ORDERS <span class="keyword">ON</span> BUYUSER.USERID = ORDERS.USERID;</span><br><span class="line"><span class="comment">--多重内连接</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> BUYUSER.USERNAME <span class="keyword">FROM</span></span><br><span class="line">BUYUSER <span class="keyword">INNER</span> <span class="keyword">JOIN</span> ORDERS <span class="keyword">ON</span> BUYUSER.USERID = ORDERS.USERID</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> ORDERITEM <span class="keyword">ON</span> ORDERS.OID = ORDERITEM.OID</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> PRODUCT <span class="keyword">ON</span> ORDERITEM.PID = PRODUCT.PID <span class="keyword">WHERE</span> ORDERS.TOTALPRICE &lt; <span class="number">300</span>;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>分组查询</strong>，分组查询配合聚合函数，可以做到以下功能</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--以性别分组，显示性别中的男女年龄的之和</span></span><br><span class="line"><span class="keyword">select</span> sex,<span class="keyword">sum</span>(age) <span class="keyword">from</span> t_student <span class="keyword">group</span> <span class="keyword">by</span> sex;</span><br><span class="line"><span class="comment">--以学生性别分组，显示男生和女生分别有多少？</span></span><br><span class="line"><span class="keyword">select</span> sex,<span class="keyword">count</span>(studentid) <span class="keyword">from</span> t_student <span class="keyword">group</span> <span class="keyword">by</span> sex;</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/21/Oracle查询进阶/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Oracle基本使用方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/17/Oracle基本使用方法/">Oracle基本使用方法</a>
-    </h1>
-  
-
-        
-        <a href="/2019/07/17/Oracle基本使用方法/" class="archive-article-date">
-  	<time datetime="2019-07-17T08:31:35.119Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天学了Oracle数据库，对其进行下总结！</p>
-<h4 id="Oracle数据库简介"><a href="#Oracle数据库简介" class="headerlink" title="Oracle数据库简介"></a>Oracle数据库简介</h4><p>​    Oracle是关系型数据库，属于同名公司Oracle的产品。用户可以使用SQL语言操作数据库。</p>
-<h4 id="SQL语句分类以及常规使用"><a href="#SQL语句分类以及常规使用" class="headerlink" title="SQL语句分类以及常规使用"></a>SQL语句分类以及常规使用</h4><p>​    SQL语言共分为五类如下所示：</p>
-<ul>
-<li><p>DML语句：<strong>数据操作语言</strong> ，用于对表中<strong>数据</strong>进行操作的语句，<strong>INSERT/UODATE/DELETE</strong>等。</p>
-<ul>
-<li><p><strong><em>插入：</em></strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用 INSERT INTO VALUES插入数据</span></span><br><span class="line"><span class="comment">--插入数据时，可以指定字段输入也可以不指定字段输入</span></span><br><span class="line"><span class="comment">--不指定时需写出全部字段所需的值</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT <span class="keyword">VALUES</span> (<span class="number">1500840308</span>,<span class="string">'涛'</span>,<span class="string">'男'</span>);</span><br><span class="line"><span class="comment">--指定时，不指定的字段需要有空约束，可以通过DDL语句对约束进行修改。</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(<span class="keyword">ID</span>,<span class="keyword">NAME</span>) <span class="keyword">VALUES</span>(<span class="number">1501020304</span>,<span class="string">'栋'</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><em>更新：</em></strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用UPADATE SET WHERE对字段进行更新</span></span><br><span class="line"><span class="comment">--不加WHERE则对SET后的字段全部进行更新</span></span><br><span class="line"><span class="keyword">UPDATE</span> Student <span class="keyword">SET</span> SEX = <span class="string">'男'</span> <span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'栋'</span>;</span><br><span class="line"><span class="comment">--日期形式的更新</span></span><br><span class="line"><span class="keyword">UPDATE</span> STUDENT <span class="keyword">SET</span> BIRTHDAY = <span class="keyword">TO_DATE</span>(<span class="string">'1996-10-18'</span>, <span class="string">'YYYY-MM-DD'</span>) <span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'波'</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><em>删除</em></strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用DELETE语句对数据进行删除</span></span><br><span class="line">  <span class="keyword">DELETE</span> <span class="keyword">FROM</span> Student <span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'1'</span>;</span><br><span class="line">  <span class="comment">--使用TRUNCATE语句删除数据,删除速度快，原理为删除表后重建，难找回数据（属于DDL）</span></span><br><span class="line"><span class="keyword">TRUNCATE</span> <span class="keyword">TABLE</span> STUDENT;</span><br></pre></td></tr></table></figure>
-
-
-
-
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>DDL语句：<strong>数据定义语言</strong>， 用于对表中<strong>字段</strong>操作的语句，CREATE/ALTER/DROP等。</p>
-<ul>
-<li><p><strong><em>创建表：</em></strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--使用CREATE TABLE XX ();创建表</span></span><br><span class="line"><span class="comment">--创建表中，数据约束有2种创建方式，可以直接跟在数据类型后面，也可以使用CONSTRAINT单独创建。</span></span><br><span class="line"><span class="comment">--第一种</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Student(</span><br><span class="line">    <span class="keyword">ID</span> <span class="built_in">char</span>(<span class="number">3</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="keyword">Name</span> varchar2(<span class="number">2</span>)  PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">    Sex <span class="built_in">char</span>(<span class="number">2</span>)</span><br><span class="line">);</span><br><span class="line"><span class="comment">--第二种</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> STUDENT(</span><br><span class="line">	<span class="keyword">ID</span> <span class="built_in">CHAR</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">	<span class="keyword">NAME</span> VARCHAR2(<span class="number">10</span>),</span><br><span class="line">	SEX <span class="built_in">CHAR</span>(<span class="number">2</span>), </span><br><span class="line">	<span class="keyword">CONSTRAINTS</span> NAME_UNI2 <span class="keyword">UNIQUE</span> (<span class="keyword">NAME</span>, SEX)</span><br><span class="line">);<span class="comment">--性别一致，名字一致才叫违反约束,但null。null可以,与主键的区别在于主键null不能并且主键只有一个，注意需要加括号，一个也要。</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><em>修改字段</em></strong>：</p>
-<ol>
-<li><p><em>添加字段：</em></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> STUDENT <span class="keyword">ADD</span> studentsex <span class="built_in">char</span>(<span class="number">2</span>);<span class="comment">--添加在字段后面</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><em>修改字段属性：</em></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--能够MODIFY修改字段属性，包括字段数据大小、数据类型等。</span></span><br><span class="line">   <span class="comment">--能够单独修改一个属性，也能够全部一起修改。</span></span><br><span class="line">   <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> STUDENT <span class="keyword">MODIFY</span> SEX VARCHAR2(<span class="number">2</span>);</span><br><span class="line">   <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> STUDENT <span class="keyword">MODIFY</span> SEX PRIMARY <span class="keyword">KEY</span>;</span><br><span class="line">   <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> STUDENT <span class="keyword">MODIFY</span> SEX VARCHAR2(<span class="number">2</span>) PRIMARY <span class="keyword">KEY</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><em>删除字段：</em></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--删除对应字段</span></span><br><span class="line"><span class="comment">--注意得注意DROP后面得加COLUMN</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> STUDENT <span class="keyword">DROP</span> <span class="keyword">COLUMN</span> SEX;</span><br></pre></td></tr></table></figure>
-
-
-</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>DCL语句：<strong>数据控制语言</strong>， 作为开发，一般用不到，不关心，有grand这种赋予权限的语句。</p>
-</li>
-<li><p>事务控制语句：<strong>提交、回滚</strong>之类的，不关心。</p>
-</li>
-<li><p>DQL语句：<strong>数据查询语言</strong>，对于开发来说很重要。</p>
-<ul>
-<li><p><strong><em>指定-查询表数据：</em></strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--查询表数据</span></span><br><span class="line"><span class="comment">--SELECT可以理解为调取，调取数据</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT;</span><br><span class="line"><span class="comment">--查询指定字段</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">NAME</span>, <span class="keyword">ID</span> <span class="keyword">FROM</span> STUDENT;</span><br><span class="line"><span class="comment">--条件查询 可以使用&lt; &gt; != =，关系运算符 AND OR NOT,算术运算符 + - * /</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'涛'</span> <span class="keyword">AND</span> SEX = <span class="string">'男'</span>;</span><br><span class="line"><span class="comment">--配合函数查询 可以使用or来写</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> <span class="keyword">ID</span> <span class="keyword">IN</span>(<span class="string">'1500840308'</span>, <span class="string">'1501020304'</span>);</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> <span class="keyword">ID</span> = <span class="string">'1500840308'</span> <span class="keyword">OR</span> <span class="keyword">ID</span> =  <span class="string">'150020304'</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><em>模糊-查询表数据：</em></strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--通过使用’_‘一个字符查询 ’%‘0-n个字符，可以搭配使用，这里举1例子,第三个字母为i的东西</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT </span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NAME</span> = <span class="string">'__i%'</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><em>连接查询：</em></strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--连接查询，即使用语句对多个表（一般情况为2个表）进行笛卡尔积，其实也就是乘法</span></span><br><span class="line">  <span class="comment">--如下为比较偏门的笛卡尔积使用方式，将2个表进行乘法运算</span></span><br><span class="line">  <span class="comment">--内连接，两个表无主次关系</span></span><br><span class="line">  <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT, STUDENT2;<span class="comment">--非常规</span></span><br><span class="line">  <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">INNER</span> <span class="keyword">JOIN</span> STUDENT2;<span class="comment">--常规</span></span><br><span class="line">  <span class="comment">--这种乘法运算，施加以条件，可以用作为父子表的结合，如多个课程分数对应一个人的表，和人名信息的表对应起来对应起来。</span></span><br><span class="line">  <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT, STUDENT4 <span class="keyword">WHERE</span> STUDENT.NAME = STUDENT4.NAME;<span class="comment">--非常规</span></span><br><span class="line">  <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">INNER</span> <span class="keyword">JOIN</span> STUDENT4 <span class="keyword">ON</span> STUDENT.NAME = STUDENT4.NAME;<span class="comment">--常规</span></span><br><span class="line">  <span class="comment">--外连接，两个表分主次关系</span></span><br><span class="line">  <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> STUDENT4 <span class="keyword">ON</span> STUDENT.NAME = STUDENT4.NAME; <span class="comment">--理解的不太好以后再来看，先这样吧。</span></span><br><span class="line">  <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> STUDENT <span class="keyword">RIGHT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> STUDENT4 <span class="keyword">ON</span> STUDENT.NAME = STUDENT4.NAME;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/17/Oracle基本使用方法/">展开全文 >></a>
         </p>
       
 
