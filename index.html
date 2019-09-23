@@ -152,6 +152,76 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-排序1-桶排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/02/排序1-桶排序/">排序1-桶排序</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/02/排序1-桶排序/" class="archive-article-date">
+  	<time datetime="2019-09-02T11:27:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="排序原理"><a href="#排序原理" class="headerlink" title="排序原理"></a>排序原理</h4><p>​        通过将各个数按照数值大小分配到相应下标的数组中，如1则分到数组下标为1的数组中，当按照顺序输出时，则是一个已排序好的序列了。如下图所示，将5、3、5、2、8分配到从小到大的桶。</p>
+<p><img src="/2019/09/02/排序1-桶排序/1567424584728.png" alt></p>
+<h4 id="程序书写"><a href="#程序书写" class="headerlink" title="程序书写"></a>程序书写</h4><p>​        程序中如何实现将<strong>数字分配到木桶</strong>中的呢，只需当扫描到一个数字时，则把一个相应数组加1即可。输出时只需把有数值的进行显示其下标，没有的不进行显示即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 桶排序实现非重排序并输出</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Text01</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] inputStored = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">1000</span>];</span><br><span class="line">        Scanner numbers = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        Scanner values = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">int</span> number = Integer.parseInt(numbers.nextLine());</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; number; i++) &#123;</span><br><span class="line">            inputStored[values.nextInt()]++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(inputStored[i] != <span class="number">0</span>)&#123;</span><br><span class="line">                System.out.print(i+ <span class="string">" "</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h4><p>​        输入要排序的数字量，下一行中依次输出要排序的序列</p>
+<p><img src="/2019/09/02/排序1-桶排序/1567426190528.png" alt></p>
+<h4 id="程序优劣性分析"><a href="#程序优劣性分析" class="headerlink" title="程序优劣性分析"></a>程序优劣性分析</h4><p>​        桶排序特别简单，并且速度非常快，可以达到O(n)时间复杂度，但所要空间也是极大的。并且当数字跨度特别大时，对空间浪费特别大。如当数字为1，1000时，还是需要数组达到1000的下标空间。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/02/排序1-桶排序/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-两数相加-leetcode0002" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1007,94 +1077,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/07/17/Oracle基本使用方法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MarkDown基本使用方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/16/MarkDown基本使用方法/">MarkDown基本使用方法</a>
-    </h1>
-  
-
-        
-        <a href="/2019/07/16/MarkDown基本使用方法/" class="archive-article-date">
-  	<time datetime="2019-07-16T13:51:22.181Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>  今天，2019.7.16，记录下第一次写博客的日子！无意间从哔哩哔哩上看见名为CodeSheep的UP主，得知写博客是非常有用的，加上以往就有写博客的想法，所以趁着刚画完原理图，有空，所以就来试验一番！接下来介绍MarkDown基本用法。  </p>
-<ul>
-<li><h3 id="自己常用到的基本指令"><a href="#自己常用到的基本指令" class="headerlink" title="自己常用到的基本指令"></a>自己常用到的基本指令</h3><ul>
-<li>首先，是标题通过使用不同位数的<kbd>#</kbd> 可以改变<strong>标题大小</strong>一般就使用1个或者2个。</li>
-<li>其次，是使用<strong>无序列表</strong><kbd>+</kbd>或者<kbd>-</kbd>再或者<kbd>*</kbd>，加上一个空格，进行无序列表的添加。</li>
-<li>最后，通过使用<strong>快捷键</strong>，<kbd>Ctrl</kbd>+<kbd>B</kbd> 对文字进行加粗处理。</li>
-</ul>
-</li>
-<li><h3 id="关于表格的生成"><a href="#关于表格的生成" class="headerlink" title="关于表格的生成"></a>关于表格的生成</h3><ul>
-<li><p>在表格方面，生成表格比较麻烦，所以想到个好的方法生成表格，输入“|x|x|”自动生成表格，后通过设置直接设置成自己想要的表格就好。如下所示：</p>
-<table>
-<thead>
-<tr>
-<th>x</th>
-<th>x</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/16/MarkDown基本使用方法/">展开全文 >></a>
         </p>
       
 
