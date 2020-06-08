@@ -152,6 +152,228 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-变量存储机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/24/变量存储机制/">变量存储机制</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/24/变量存储机制/" class="archive-article-date">
+  	<time datetime="2019-07-24T01:48:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="生存空间"><a href="#生存空间" class="headerlink" title="生存空间"></a>生存空间</h3><ul>
+<li><strong>栈与堆：</strong>栈，方法调用和局部变量。堆，所有对象</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>实例变量</th>
+<th>局部变量</th>
+<th>总结</th>
+<th>注意点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>声明在类，而不是方法中的变量。所有东西都存于堆上。</td>
+<td>在方法中的变量，是暂时的，Primary变量存于栈，非primary的变量本身存于栈，对象本身存于堆。</td>
+<td>所有对象都存于堆上。</td>
+<td>实例变量中如果有非Primary类型变量，则在对象创建只会给与变量本身创建空间，而非Primary对象本身不会再对象上。</td>
+</tr>
+</tbody></table>
+<h3 id="构造函数属性"><a href="#构造函数属性" class="headerlink" title="构造函数属性"></a>构造函数属性</h3><ul>
+<li>不需要返回值，void也不需要</li>
+<li>自己构造了一个后，JVM不会缺省构造函数</li>
+<li>在创建新对象时，所有继承下来的构造函数都会从最上层父类开始被执行</li>
+<li>抽象类的构造函数会再具体子类创建出实例时执行</li>
+</ul>
+<h3 id="释放对象的方法"><a href="#释放对象的方法" class="headerlink" title="释放对象的方法"></a>释放对象的方法</h3><p><img src="/2019/07/24/变量存储机制/1563936064479.png" alt></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/24/变量存储机制/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-使用IDEA编写Java程序连接Oracle数据库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/21/使用IDEA编写Java程序连接Oracle数据库/">使用IDEA编写Java程序连接Oracle数据库</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/21/使用IDEA编写Java程序连接Oracle数据库/" class="archive-article-date">
+  	<time datetime="2019-07-21T12:23:39.574Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天主要有空，顺便写一下Java连接oracle数据库的博客。<font color="tomato">顺便说个题外话，创建MD文档时，Title冒号后要有个空格啊!</font></p>
+<h3 id="配置过程"><a href="#配置过程" class="headerlink" title="配置过程"></a>配置过程</h3><ul>
+<li><strong>下载连接Oracle所必须的 JDBC.Jar包</strong></li>
+</ul>
+<p>通过<a href="https://www.oracle.com/technetwork/database/enterprise-edition/jdbc-112010-090769.html" target="_blank" rel="noopener">点击</a>进入网站，下载Jar包。</p>
+<ul>
+<li><strong>将Jar包导入IDEA</strong></li>
+</ul>
+<p>首先，在项目模块中，创建lib文件夹，将Jar包复制进去。</p>
+<p><img src="/2019/07/21/使用IDEA编写Java程序连接Oracle数据库/1563713511619.png" alt></p>
+<p>之后，将模块编译路径告知编译器，右击模块,选中Moudele Setting，并在弹出的选项框中打勾依赖包即可。</p>
+<p><img src="/2019/07/21/使用IDEA编写Java程序连接Oracle数据库/1563714376663.png" alt></p>
+<h3 id="程序书写"><a href="#程序书写" class="headerlink" title="程序书写"></a>程序书写</h3><ul>
+<li><strong>JDBC组件简介</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>JDBC核心组件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DriverManager</td>
+<td>用于注册驱动，创建连接等，但实际应用中使用<font color="tomato">Class.forName()</font>对驱动进行注册</td>
+</tr>
+<tr>
+<td>Connection</td>
+<td>关闭连接、创建SQL命令发送对象等</td>
+</tr>
+<tr>
+<td>Statement</td>
+<td>将SQL语句提交到数据库</td>
+</tr>
+<tr>
+<td>ResultSet</td>
+<td>对数据进行保存与操作</td>
+</tr>
+<tr>
+<td>Driver</td>
+<td>很少会用到，一般使用DriverManager</td>
+</tr>
+<tr>
+<td>SQLException</td>
+<td>处理数据库中的异常</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>注册Oracle驱动</strong>：使用DriverManager注册驱动。<font color="red">在程序中使用的是CLASS.forName方法，实质上，使用DriverManager.deregisterDriver()也能达到注册驱动的效果，使用前者避免重复注册。</font></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    Class.forName(<span class="string">"oracle.jdbc.driver.OracleDriver"</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>连接数据库</strong>：使用Connection创建连接</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ORACLE_URL = <span class="string">"jdbc:oracle:thin:@//localhost:1521/ORCL"</span>;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ORACLE_USER = <span class="string">"CT123"</span>;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ORACLE_PW = <span class="string">"Ct919919"</span>;</span><br><span class="line">Connection connection = <span class="keyword">null</span>;</span><br><span class="line">connection = DriverManager.getConnection(ORACLE_URL, ORACLE_USER, ORACLE_PW);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>发送Sql命令</strong>：使用Statement对象插入数据，更新数据等</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Statement stat;	</span><br><span class="line">stat = connection.createStatement();</span><br><span class="line">stat.executeUpdate(<span class="string">"insert into STUDENT values('1500840303','去','女',</span></span><br><span class="line"><span class="string">                      to_date('1997-11-6', 'yyyy-mm-dd'))"</span>);</span><br><span class="line">stat.executeUpdate(<span class="string">"delete from STUDENT where ID = '1500840303'"</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>对数据进行操作</strong>：使用ResultSet对象，并使用<strong>next()</strong>方法输出表中的数据</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ResultSet rs = <span class="keyword">null</span>;</span><br><span class="line">rs = stat.executeQuery(<span class="string">"select  NAME, ID from STUDENT"</span>);</span><br><span class="line">   <span class="keyword">while</span>(rs.next())&#123;</span><br><span class="line">       String ID = rs.getNString(<span class="string">"ID"</span>);</span><br><span class="line">       String NAME = rs.getNString(<span class="string">"NAME"</span>);</span><br><span class="line">       System.out.println(ID + <span class="string">" "</span> + NAME);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>程序实例</strong>如下为简单的实现连接Oracle数据库的程序，能够插入、删除、查询。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.hust.day01.demo01;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> TaoTao</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2019/7/20 - 12:03</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JdbcDemo01</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ORACLE_URL = <span class="string">"jdbc:oracle:thin:@//localhost:1521/ORCL"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ORACLE_USER = <span class="string">"CT123"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ORACLE_PW = <span class="string">"Ct919919"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Connection connection = <span class="keyword">null</span>;</span><br><span class="line">        Statement stat;</span><br><span class="line">        ResultSet rs = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line"></span><br><span class="line">              Class.forName(<span class="string">"oracle.jdbc.driver.OracleDriver"</span>);</span><br><span class="line"></span><br><span class="line">              connection = DriverManager.getConnection(ORACLE_URL, ORACLE_USER, ORACLE_PW);</span><br><span class="line"></span><br><span class="line">              System.out.println(<span class="string">"连接已经打开"</span>);</span><br><span class="line"></span><br><span class="line">              stat = connection.createStatement();</span><br><span class="line">  <span class="comment">//            stat.executeUpdate("insert into STUDENT values('1500840303','去','女',to_date('1997-11-6', 'yyyy-mm-dd'))");</span></span><br><span class="line">              stat.executeUpdate(<span class="string">"delete from STUDENT where ID = '1500840303'"</span>);</span><br><span class="line">              rs = stat.executeQuery(<span class="string">"select  NAME, ID from STUDENT"</span>);</span><br><span class="line">              <span class="keyword">while</span>(rs.next())&#123;</span><br><span class="line">                  String ID = rs.getNString(<span class="string">"ID"</span>);</span><br><span class="line">                  String NAME = rs.getNString(<span class="string">"NAME"</span>);</span><br><span class="line">                  System.out.println(ID + <span class="string">" "</span> + NAME);</span><br><span class="line">              &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line"></span><br><span class="line">            e.printStackTrace();</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (rs != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    rs.close();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (connection != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    connection.close();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                System.out.println(<span class="string">"连接已经断开"</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/21/使用IDEA编写Java程序连接Oracle数据库/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Oracle查询进阶" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -558,7 +780,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 TaoTao
+    		&copy; 2020 TaoTao
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
